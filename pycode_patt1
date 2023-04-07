@@ -1,0 +1,19 @@
+import os
+import shutil
+
+folder_path = input("Введите путь к папке: ")
+
+if not os.path.exists(os.path.join(folder_path, "Прочее")):
+    os.mkdir(os.path.join(folder_path, "Прочее"))
+
+for file_name in os.listdir(folder_path):
+    if os.path.isfile(os.path.join(folder_path, file_name)):
+        department_name = os.path.splitext(file_name)[0]
+        if department_name != "":
+            if not os.path.exists(os.path.join(folder_path, department_name)):
+                os.mkdir(os.path.join(folder_path, department_name))
+            shutil.move(os.path.join(folder_path, file_name), os.path.join(folder_path, department_name))
+        else:
+            shutil.move(os.path.join(folder_path, file_name), os.path.join(folder_path, "Прочее"))
+
+print("Готово!")
